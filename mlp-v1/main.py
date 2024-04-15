@@ -1,3 +1,6 @@
-from entities.hidden_layer import HiddenLayer
+from data.file_handler import FileHandler
 
-test = HiddenLayer(2, 10)
+file = FileHandler("mlp-v1/data/source")
+charData = file.get_char_data()
+print(len(charData))
+print(charData[913])

@@ -2,6 +2,11 @@ from .input_layer import InputLayer
 from .hidden_layer import HiddenLayer
 from .output_layer import OutputLayer
 
+'''
+    Representa uma rede neural com uma camada de entrada,
+    uma camada oculta e uma camada de saída.
+    As camadas oculta e de saída podem conter uma ou mais subcamadas.
+'''
 class NeuralNetwork:
     
     def __init__(self, 
