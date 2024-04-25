@@ -1,16 +1,23 @@
 import os
-from .char_data import CharData
 
 '''
+    Manipulação dos arquivos de treinamento.
     Responsável por manipular os arquivos que contém os dados de treinamento
     (vetores e caracteres) utlizados no MLP.
-    Realiza a leitura dos arquivos e cria uma lista de CharData
 '''
 class FileHandler:
     
     def __init__(self, dir_path: str):
         self.__vectors = self.__read_file_vectors(dir_path)
         self.__chars = self.__read_file_chars(dir_path)
+
+    @property
+    def vectors(self) -> list[int]:
+        return self.__vectors
+    
+    @property
+    def chars(self) -> list[str]:
+        return self.__chars
 
     def __line_format_vector(self, content: str) -> list[int]:
         content_list_str = content.replace(" ", "").replace("\n", "").split(",")
@@ -35,9 +42,3 @@ class FileHandler:
             for line in file:
                 chars.append(line.replace("\n", ""))
         return chars
-
-    def get_char_data(self) -> list[CharData]:
-        charData = []
-        for vector, char in zip(self.__vectors, self.__chars):
-            charData.append(CharData(vector, char))
-        return charData

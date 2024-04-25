@@ -8,8 +8,8 @@ class Perceptron:
     def __init__(self, 
                  total_inputs: int,
                  params: Parameters):
-        self.__sensory_neurons = self._create_sensory_neurons(total_inputs)
-        self.__params = params
+        self.__total_input = total_inputs
+        self.__sensory_neurons = self._create_sensory_neurons(params)
         Perceptron.__id += 1
         self.__id = Perceptron.__id
 
@@ -17,10 +17,10 @@ class Perceptron:
     def sensory_neurons(self) -> list[SensoryNeuron]:
         return self.__sensory_neurons
     
-    def _create_sensory_neurons(self, inputs_total:int) -> list[SensoryNeuron]:
-        sensory_neurons = [SensoryNeuron(Parameters.bias_value)]
-        for i in range(inputs_total):
-            sensory_neurons.append(SensoryNeuron(None))
+    def _create_sensory_neurons(self, params: Parameters) -> list[SensoryNeuron]:
+        sensory_neurons = [SensoryNeuron(params, params.bias_value)]
+        for i in range(self.__total_input):
+            sensory_neurons.append(SensoryNeuron(params, None))
         return sensory_neurons
 
     def _input_function(self) -> float:
@@ -30,14 +30,14 @@ class Perceptron:
         return value
     
     def _step_function(self, value: float) -> int:
-        pass
+        return 1
 
-    def _receive_values(self, list_values: list[int]) -> None:
-        for value, sensory_neuron in zip(list_values, self.__sensory_neurons[1:]):
+    def _receive_values(self, vector: list[int]) -> None:
+        for value, sensory_neuron in zip(vector, self.__sensory_neurons[1:]):
             sensory_neuron.value = value
 
-    def output(self, list_values: list[int]) -> int:
-        self._receive_values(list_values)
+    def output(self, vector: list[int]) -> int:
+        self._receive_values(vector)
         value = self._step_function(self._input_function())
         return value
     

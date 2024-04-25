@@ -5,9 +5,9 @@ class SensoryNeuron:
 
     __id = 0
     
-    def __init__(self, 
-                 value: int, 
-                 params: Parameters):
+    def __init__(self,
+                params: Parameters, 
+                value: int):
         self.__params = params
         self.__value = value
         self.__weight = self._weight_random()
