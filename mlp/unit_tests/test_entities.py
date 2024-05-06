@@ -16,7 +16,7 @@ class TestEntities:
     def test_PerceptronCollection(self):
         params = Parameters(0.5)
         file = FileHandler("mlp/data/source")
-        collection = PerceptronCollection(params, 10, params.total_inputs)
+        collection = PerceptronCollection(params, 10, params.vector_dimension)
         
         expected = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         output = collection.output(file.vectors[0])

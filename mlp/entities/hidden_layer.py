@@ -1,30 +1,22 @@
-from entities.output_layer import OutputLayer
-from configs.parameters import Parameters
-from .perceptron_collection import PerceptronCollection
+from entities.neural_layer import NeuralLayer
 
-class HiddenLayer:
+class HiddenLayer(NeuralLayer):
 
-    def __init__(self,
-                 params: Parameters, 
-                 total_sub_layers: int, 
-                 total_perceptrons: int):
-        self.__sub_layers = self.__create_sub_layers(params, total_sub_layers, total_perceptrons)
-    
-    def __create_sub_layers(self,
-                            params: Parameters,  
-                            total_sub_layers: int, 
-                            total_perceptrons: int) -> list[PerceptronCollection]:
-        sub_layers = []
-        total_input = params.total_inputs
-        for i in range(total_sub_layers):
-            sub_layers.append(PerceptronCollection(params, total_perceptrons, total_input))
-            total_input = total_perceptrons
-        return sub_layers  
-    
-    def output(self, vector: list[int]) -> list[int]:
-        output = []
-        for sub_layer in self.__sub_layers:
-            output = sub_layer.output(vector)
-            vector = output
-        return output
+    def __init__(self, total_perceptrons: int, vector_dimension: int):
+        super().__init__(total_perceptrons, vector_dimension)
+
+    def update_weights(self, learning_rate: float, output_layer_errors: list[list[float]]) -> None:
+        for perceptron in self.perceptrons:
+            index = self.perceptrons.index(perceptron)
+            output_layer_error = self.__output_layer_error(output_layer_errors, index)
+            perceptron.update_weights_hidden_layer(learning_rate, output_layer_error)
+
+    def __output_layer_error(self, output_layer_errors: list[list[float]], index: int):
+        value = 0
+        for errors in output_layer_errors:
+            value += errors[index]
+        return value
+
+    def __repr__(self) -> str:
+        return f"HiddenLayer=[TotalPerceptrons={len(self.perceptrons)}, VectorDimension={self.vector_dimension}]"
         

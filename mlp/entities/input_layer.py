@@ -1,18 +1,16 @@
-from data.char_data import CharData
-from entities.hidden_layer import HiddenLayer
+from data.data_mlp import DataMlp
 
+'''
+    Representa a camada de entrada da MLP.
+'''
 class InputLayer:
 
-    def __init__(self, vectors: list[list[int]]):
-        self.__vectors = vectors
+    def __init__(self, data: list[DataMlp]):
+        self.__data = data
     
     @property
-    def vectors(self) -> list[list[int]]:
-        self.__vectors
-    
-    def vector(self, vector_index: int) -> list[int]:
-        return self.__vectors[vector_index]
-    
-    @property
-    def total_vectors(self) -> int:
-        return len(self.__vectors)
+    def data(self) -> list[DataMlp]:
+        return self.__data
+
+    def __repr__(self) -> str:
+        return f"InputLayer=[TotalData={len(self.__data)}]"

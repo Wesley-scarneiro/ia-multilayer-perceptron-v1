@@ -1,14 +1,10 @@
-from configs.parameters import Parameters
 from random import uniform
 
 class SensoryNeuron:
 
     __id = 0
     
-    def __init__(self,
-                params: Parameters, 
-                value: int):
-        self.__params = params
+    def __init__(self, value: int):
         self.__value = value
         self.__weight = self._weight_random()
         SensoryNeuron.__id += 1
@@ -25,13 +21,15 @@ class SensoryNeuron:
     @property
     def weight(self) -> float:
         return self.__weight
-    
-    def update_weight(self, target: int) -> None:
-        value = self.__weight + (self.__params.learning_rate * target * self.__value)
-        self.__weight = round(value, 3)
+
+    def update_weight(self, learning_rate: float, error_rate: float) -> None:
+        self.__weight += (learning_rate * error_rate * self.__value)
+        self.__weight = round(self.__weight, 2)
     
     def _weight_random(self) -> float:
-        return round(uniform(0, 1), 3)
+        value =  uniform(0, 1)
+        value = round(value, 2)
+        return value
     
     def __str__(self):
         string = f"[Id={self.__id}, Value={self.__value}, Weight={self.__weight}]"

@@ -4,20 +4,37 @@ from entities.hidden_layer import HiddenLayer
 from entities.output_layer import OutputLayer
 from entities.input_layer import InputLayer
 from entities.neural_network import NeuralNetwork
+from entities.perceptron import Perceptron
+from data.data_mlp import DataMlp
 
-file = FileHandler("mlp/data/source")
-charData = file.vectors
-print(len(charData))
-print(charData[913])
+def create_targets(params: Parameters, char: str) -> list[float]:
+    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    targets = [params.threshold_min] * params.total_output_percetrons
+    targets[alphabet.index(char)] = params.threshold_max
+    return targets
+
+def create_data_mlp(file: FileHandler, params: Parameters) -> list[DataMlp]:
+    data_mlp = []
+    for vector, char in zip(file.vectors, file.chars):
+        targets = create_targets(params, char)
+        data = DataMlp(vector, char, targets)
+        data_mlp.append(data)
+    return data_mlp
+
+def create_neural_network(params: Parameters) -> NeuralNetwork:
+    file = FileHandler("mlp/data/source")
+    data_mlp = create_data_mlp(file, params)
+    mlp = NeuralNetwork(data_mlp[:3], params)
+    return mlp
+
+params = Parameters(0.6, 100, 0.8, 0.5)
+mlp = create_neural_network(params)
+print(mlp)
+mlp.train_neural_network()
+
+# hidden = HiddenLayer(10, 120)
+# print(hidden)
+# output = OutputLayer(26, 10)
+# print(output)
 
 
-params = Parameters(0.5)
-file = FileHandler("mlp/data/source")
-input_layer = InputLayer([file.vectors[0]])
-hidden_layer = HiddenLayer(params, 2, 10)
-output_layer = OutputLayer(params, 10, 10)
-neural_network = NeuralNetwork(input_layer, hidden_layer, output_layer)
-
-expected = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-output = neural_network.output()
-assert output == expected
