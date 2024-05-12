@@ -18,5 +18,9 @@ class HiddenLayer(NeuralLayer):
         return value
 
     def __repr__(self) -> str:
-        return f"HiddenLayer=[TotalPerceptrons={len(self.perceptrons)}, VectorDimension={self.vector_dimension}]"
+        return f'''HiddenLayer=
+        [
+            - TotalPerceptrons={len(self.perceptrons)}, 
+            - VectorDimension={self.vector_dimension}
+        ]'''
         

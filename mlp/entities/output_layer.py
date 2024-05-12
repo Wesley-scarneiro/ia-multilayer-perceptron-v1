@@ -11,6 +11,10 @@ class OutputLayer(NeuralLayer):
             output_layer_errors.append(perceptron.weighted_output_error_information_term(target, output))
             perceptron.update_weights_ouput_layer(learning_rate, target, output)
         return output_layer_errors
-        
+    
     def __repr__(self) -> str:
-        return f"OutputLayer=[TotalPerceptrons={len(self.perceptrons)}, VectorDimension={self.vector_dimension}]"
+        return f'''OutputLayer=
+        [
+            - TotalPerceptrons={len(self.perceptrons)}, 
+            - VectorDimension={self.vector_dimension}
+        ]'''

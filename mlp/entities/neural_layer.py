@@ -27,6 +27,13 @@ class NeuralLayer(ABC):
     def vector_dimension(self) -> int:
         return self.__vector_dimension
     
+    @property
+    def weights(self) -> list[list[float]]:
+        weights = []
+        for perceptron in self.__perceptrons:
+            weights.append(perceptron.weights)
+        return weights
+    
     @abstractmethod
     def update_weights():
         pass

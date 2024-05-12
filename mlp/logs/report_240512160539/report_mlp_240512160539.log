@@ -1,0 +1,108 @@
+-- MLP info --
+MLP=
+    [
+        - Id=1,
+        - Params=
+        [
+            - learning_rate = 0.5, 
+            - error_rate: float = 1e-05, 
+            - input_vector_dimension = 120, 
+            - total_hidden_perceptrons = 10, 
+            - total_output_percetrons = 26, 
+            - total_eras = 5000, 
+            - bias_value = 1, 
+            - threshold_max = 1, 
+            - threshold_min = 0
+        ],
+        - InputLayer=
+        [
+            - TotalData = 15
+        ],
+        - HiddenLayer=
+        [
+            - TotalPerceptrons=10, 
+            - VectorDimension=120
+        ],
+        - OutputLayer=
+        [
+            - TotalPerceptrons=26, 
+            - VectorDimension=10
+        ]
+        - Final_era= 1056
+    ]
+-- Learning assessment --
+- Data = A
+- Max_value_output = 0.8961538897168565
+- Position_value_output = 0
+- Classification = True
+
+- Data = B
+- Max_value_output = 0.8458721669527277
+- Position_value_output = 1
+- Classification = True
+
+- Data = C
+- Max_value_output = 0.940728473397368
+- Position_value_output = 2
+- Classification = True
+
+- Data = D
+- Max_value_output = 0.8324511733334842
+- Position_value_output = 3
+- Classification = True
+
+- Data = E
+- Max_value_output = 0.013900532159579973
+- Position_value_output = 9
+- Classification = False
+
+- Data = F
+- Max_value_output = 0.935600812558581
+- Position_value_output = 5
+- Classification = True
+
+- Data = G
+- Max_value_output = 0.8324622365250908
+- Position_value_output = 6
+- Classification = True
+
+- Data = H
+- Max_value_output = 0.927813214963502
+- Position_value_output = 7
+- Classification = True
+
+- Data = I
+- Max_value_output = 0.9313306757740852
+- Position_value_output = 8
+- Classification = True
+
+- Data = J
+- Max_value_output = 0.8238789244035585
+- Position_value_output = 9
+- Classification = True
+
+- Data = K
+- Max_value_output = 0.8693851715254601
+- Position_value_output = 10
+- Classification = True
+
+- Data = L
+- Max_value_output = 0.9341915731422219
+- Position_value_output = 11
+- Classification = True
+
+- Data = M
+- Max_value_output = 0.9473118452794849
+- Position_value_output = 12
+- Classification = True
+
+- Data = N
+- Max_value_output = 0.9153397242613039
+- Position_value_output = 13
+- Classification = True
+
+- Data = O
+- Max_value_output = 0.8264641544085292
+- Position_value_output = 14
+- Classification = True
+

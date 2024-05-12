@@ -9,7 +9,7 @@ class DataMlp:
     def __init__(self,
                  vector: list[int],
                  char: str=None,
-                 target: list[float]=None):
+                 target: list[int]=None):
         self.__vector = vector
         self.__char = char
         self.__target = target
@@ -23,7 +23,7 @@ class DataMlp:
         return self.__char
     
     @property
-    def target(self) -> list[float]:
+    def target(self) -> list[int]:
         return self.__target
     
     def __repr__(self) -> str:

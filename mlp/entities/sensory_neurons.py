@@ -24,12 +24,9 @@ class SensoryNeuron:
 
     def update_weight(self, learning_rate: float, error_rate: float) -> None:
         self.__weight += (learning_rate * error_rate * self.__value)
-        self.__weight = round(self.__weight, 2)
     
     def _weight_random(self) -> float:
-        value =  uniform(0, 1)
-        value = round(value, 2)
-        return value
+        return uniform(0, 0.01)
     
     def __str__(self):
         string = f"[Id={self.__id}, Value={self.__value}, Weight={self.__weight}]"

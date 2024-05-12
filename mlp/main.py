@@ -1,11 +1,9 @@
 from data.file_handler import FileHandler
 from configs.parameters import Parameters
-from entities.hidden_layer import HiddenLayer
-from entities.output_layer import OutputLayer
-from entities.input_layer import InputLayer
 from entities.neural_network import NeuralNetwork
-from entities.perceptron import Perceptron
 from data.data_mlp import DataMlp
+from entities.report import Report
+from datetime import datetime
 
 def create_targets(params: Parameters, char: str) -> list[float]:
     alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -13,7 +11,8 @@ def create_targets(params: Parameters, char: str) -> list[float]:
     targets[alphabet.index(char)] = params.threshold_max
     return targets
 
-def create_data_mlp(file: FileHandler, params: Parameters) -> list[DataMlp]:
+def create_data_mlp(params: Parameters) -> list[DataMlp]:
+    file = FileHandler("mlp/data/source")
     data_mlp = []
     for vector, char in zip(file.vectors, file.chars):
         targets = create_targets(params, char)
@@ -21,20 +20,18 @@ def create_data_mlp(file: FileHandler, params: Parameters) -> list[DataMlp]:
         data_mlp.append(data)
     return data_mlp
 
-def create_neural_network(params: Parameters) -> NeuralNetwork:
-    file = FileHandler("mlp/data/source")
-    data_mlp = create_data_mlp(file, params)
-    mlp = NeuralNetwork(data_mlp[:3], params)
-    return mlp
+def main():
+    params = Parameters(0.5, 0.00001, 120, 11, 26, 5000)
+    data_mlp = create_data_mlp(params)
+    alphabet = 15
+    mlp = NeuralNetwork(data_mlp[:alphabet], params)
+    mlp.train_neural_network()
+    report = Report(mlp, f"{datetime.now().strftime('%y%m%d%H%M%S')}", data_mlp[:alphabet])
+    report.report()
 
-params = Parameters(0.6, 100, 0.8, 0.5)
-mlp = create_neural_network(params)
-print(mlp)
-mlp.train_neural_network()
+if __name__ == "__main__":
+    main()
 
-# hidden = HiddenLayer(10, 120)
-# print(hidden)
-# output = OutputLayer(26, 10)
-# print(output)
+
 
 

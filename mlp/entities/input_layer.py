@@ -13,4 +13,7 @@ class InputLayer:
         return self.__data
 
     def __repr__(self) -> str:
-        return f"InputLayer=[TotalData={len(self.__data)}]"
+        return f'''InputLayer=
+        [
+            - TotalData = {len(self.__data)}
+        ]'''

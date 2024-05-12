@@ -2,20 +2,28 @@ class Parameters:
 
     def __init__(self, 
                  learning_rate: float,
+                 error_rate: float,
+                 input_vector_dimension: int,
                  total_hidden_perceptrons: int,
-                 threshold_max: float,
-                 threshold_min: float):
+                 total_output_percetrons: int,
+                 total_eras: int):
         self.__learning_rate = learning_rate
+        self.__error_rate = error_rate
+        self.__input_vector_dimension = input_vector_dimension
         self.__total_hidden_perceptrons = total_hidden_perceptrons
-        self.__total_output_percetrons = 26
-        self.__input_vector_dimension = 120
+        self.__total_output_percetrons = total_output_percetrons
+        self.__total_eras = total_eras
         self.__bias_value = 1
-        self.__threshold_max = threshold_max
-        self.__threshold_min = threshold_min
+        self.__threshold_max = 1
+        self.__threshold_min = 0
     
     @property
     def learning_rate(self) -> float:
         return self.__learning_rate
+    
+    @property
+    def error_rate(self) -> float:
+        return self.__error_rate
     
     @property
     def total_hidden_perceptrons(self) -> int:
@@ -24,6 +32,10 @@ class Parameters:
     @property
     def total_output_percetrons(self) -> int:
         return self.__total_output_percetrons
+    
+    @property
+    def total_eras(self) -> int:
+        return self.__total_eras
     
     @property
     def bias_value(self) -> int:
@@ -42,4 +54,15 @@ class Parameters:
         return self.__threshold_min
     
     def __repr__(self) -> str:
-        return f"Params=[LearningRate={self.__learning_rate}, TotalHiddenPerceptrons={self.__total_hidden_perceptrons}]"
+        return f'''Params=
+        [
+            - learning_rate = {self.__learning_rate}, 
+            - error_rate: float = {self.__error_rate}, 
+            - input_vector_dimension = {self.__input_vector_dimension}, 
+            - total_hidden_perceptrons = {self.__total_hidden_perceptrons}, 
+            - total_output_percetrons = {self.__total_output_percetrons}, 
+            - total_eras = {self.__total_eras}, 
+            - bias_value = {self.__bias_value}, 
+            - threshold_max = {self.__threshold_max}, 
+            - threshold_min = {self.__threshold_min}
+        ]'''
