@@ -21,12 +21,12 @@ def create_data_mlp(params: Parameters) -> list[DataMlp]:
     return data_mlp
 
 def main():
-    params = Parameters(0.5, 0.00001, 120, 11, 26, 5000)
+    params = Parameters(0.5, 1, 120, 100, 26, 600)
     data_mlp = create_data_mlp(params)
-    alphabet = 15
+    alphabet = 1000
     mlp = NeuralNetwork(data_mlp[:alphabet], params)
     mlp.train_neural_network()
-    report = Report(mlp, f"{datetime.now().strftime('%y%m%d%H%M%S')}", data_mlp[:alphabet])
+    report = Report(mlp, f"{datetime.now().strftime('%y%m%d%H%M%S')}", data_mlp[alphabet:])
     report.report()
 
 if __name__ == "__main__":

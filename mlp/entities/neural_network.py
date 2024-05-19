@@ -21,6 +21,7 @@ class NeuralNetwork:
         self.__output_layer = OutputLayer(params.total_output_percetrons, params.total_hidden_perceptrons)
         self.__error_info = []
         self.__final_era = None
+        self.__final_error = 0
         NeuralNetwork.__id += 1
         self.__id = NeuralNetwork.__id
     
@@ -69,9 +70,10 @@ class NeuralNetwork:
             current_error = self.__iterate_data()
             self.__error_info.append((era, current_error))
             print(f"- Error[{era}] = {current_error}")
-            if abs(current_error - previous_error) < self.__params.error_rate:
+            if current_error < self.__params.error_rate:
                 break
         self.__final_era = era
+        self.__final_error = current_error
         print("fineshed")
     
     # Gera a saída da rede para uma data entrada
@@ -87,4 +89,5 @@ class NeuralNetwork:
         - {self.__hidden_layer},
         - {self.__output_layer}
         - Final_era= {self.__final_era}
+        - Final_error = {self.__final_error}
     ]'''

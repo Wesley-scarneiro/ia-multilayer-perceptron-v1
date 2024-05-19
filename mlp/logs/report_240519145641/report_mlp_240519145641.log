@@ -1,0 +1,37 @@
+-- MLP info --
+MLP=
+    [
+        - Id=1,
+        - Params=
+        [
+            - learning_rate = 0.5, 
+            - error_rate: float = 1e-05, 
+            - input_vector_dimension = 120, 
+            - total_hidden_perceptrons = 15, 
+            - total_output_percetrons = 26, 
+            - total_eras = 1000, 
+            - bias_value = 1, 
+            - threshold_max = 1, 
+            - threshold_min = 0
+        ],
+        - InputLayer=
+        [
+            - TotalData = 20
+        ],
+        - HiddenLayer=
+        [
+            - TotalPerceptrons=15, 
+            - VectorDimension=120
+        ],
+        - OutputLayer=
+        [
+            - TotalPerceptrons=26, 
+            - VectorDimension=15
+        ]
+        - Final_era= 899
+    ]
+-- Learning assessment --
+- Total_hits = 20
+- Total_errors = 0
+- Char_hits = ['A(0', 'B(1', 'C(2', 'D(3', 'E(4', 'F(5', 'G(6', 'H(7', 'I(8', 'J(9', 'K(10', 'L(11', 'M(12', 'N(13', 'O(14', 'P(15', 'Q(16', 'R(17', 'S(18', 'T(19']
+- Char_errors = []

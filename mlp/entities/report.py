@@ -37,17 +37,23 @@ class Report:
     def __learning_assessment(self) -> None:
         self.__report_logger.info("-- Learning assessment --")
         alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        total_hits = 0
+        char_hits = []
+        char_erros = []
         for data in self.__data:
             output = self.__mlp.output(data.vector)
-            max_value = numpy.amax(output)
-            index = output.index(max_value)
-            result = f'''- Data = {data.char}
-- Max_value_output = {max_value}
-- Position_value_output = {index}
-- Classification = {data.char == alphabet[index]}
-'''
-            self.__report_logger.info(result)
-    
+            index = output.index(numpy.amax(output))
+            char = f"{data.char}({self.__data.index(data)})"
+            if (data.char == alphabet[index]):
+                total_hits += 1
+                char_hits.append(char)
+            else:
+                char_erros.append(char)
+        self.__report_logger.info(f"- Total_hits = {total_hits}")
+        self.__report_logger.info(f"- Total_errors = {len(self.__data) - total_hits}")
+        self.__report_logger.info(f"- Char_hits = {char_hits}")
+        self.__report_logger.info(f"- Char_errors = {char_erros}")
+
     def report(self) -> None:
         self.__report_logger.info("-- MLP info --")
         self.__report_logger.info(self.__mlp)

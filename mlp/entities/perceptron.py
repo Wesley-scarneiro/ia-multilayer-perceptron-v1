@@ -9,7 +9,7 @@ class Perceptron:
         self.__sensory_neurons = self._create_sensory_neurons(vector_dimension)
         Perceptron.__id += 1
         self.__id = Perceptron.__id
-        self. __input_function_cache = None
+        self. __input_function_result = 0
 
     @property
     def weights(self) -> list[float]:
@@ -21,13 +21,11 @@ class Perceptron:
             sensory_neurons.append(SensoryNeuron(None))
         return sensory_neurons
 
-    def __input_function(self) -> float:
-        if self.__input_function_cache is None:
-            value = 0
-            for sensory_neuron in self.__sensory_neurons:
-                value += sensory_neuron.value * sensory_neuron.weight
-            self.__input_function_cache = value
-        return self.__input_function_cache
+    def __input_function(self, vector: list[float]) -> None:
+            self.__input_function_result = self.__sensory_neurons[0].weight
+            for value, sensory_neuron in zip(vector, self.__sensory_neurons[1:]):
+                sensory_neuron.value = value
+                self.__input_function_result += value * sensory_neuron.weight
     
     def __sigmoid_function(self, value: float) -> float:
         result =  1 / (1 + math.exp(-value))
@@ -39,19 +37,13 @@ class Perceptron:
         result = sigmoid_value * (1 - sigmoid_value)
         return result
 
-    def _receive_values(self, vector: list[int]) -> None:
-        self.__input_function_cache = None
-        for value, sensory_neuron in zip(vector, self.__sensory_neurons[1:]):
-            sensory_neuron.value = value
-
     def output(self, vector: list[int]) -> float:
-        self._receive_values(vector)
-        value_input_function = self.__input_function()
-        value_step_function = self.__sigmoid_function(value_input_function)
-        return value_step_function
+        self.__input_function(vector)
+        value = self.__sigmoid_function(self.__input_function_result)
+        return value
     
     def __output_error_information_term(self, target: float, output: float) -> float:
-        error_rate = (target - output) * self.__derived_sigmoid_function(self.__input_function())
+        error_rate = (target - output) * self.__derived_sigmoid_function(self.__input_function_result)
         return error_rate
     
     def weighted_output_error_information_term(self, target: float, output: float) -> list[float]:
@@ -63,7 +55,7 @@ class Perceptron:
         return error_informations
     
     def __hidden_error_information_term(self, output_layer_error: float) -> float:
-        error_rate = self.__derived_sigmoid_function(self.__input_function()) * output_layer_error
+        error_rate = self.__derived_sigmoid_function(self.__input_function_result) * output_layer_error
         return error_rate
 
     def update_weights_ouput_layer(self, learning_rate: float, target: float, output: float) -> None:
@@ -77,5 +69,5 @@ class Perceptron:
             sensory_neuron.update_weight(learning_rate, error_information_term)
 
     def __str__(self):
-        string = f"Perceptron=[Id={self.__id}, VectorDimension= {self.__vector_dimension}, SensoryNeurons={self.__sensory_neurons}]"
+        string = f"Perceptron=[Id={self.__id}, VectorDimension= {len(self.__sensory_neurons)}, SensoryNeurons={self.__sensory_neurons}]"
         return string
