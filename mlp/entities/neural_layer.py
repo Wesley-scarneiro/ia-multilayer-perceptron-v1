@@ -19,6 +19,10 @@ class NeuralLayer(ABC):
             output.append(perceptron.output(vector))
         return output
     
+    def carry_weights(self, weights_list: list[list[float]]):
+        for perceptron, weights in zip(self.perceptrons, weights_list):
+            perceptron.weights = weights
+    
     @property
     def perceptrons(self) -> list[Perceptron]:
         return self.__perceptrons

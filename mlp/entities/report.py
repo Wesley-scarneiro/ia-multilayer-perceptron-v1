@@ -8,17 +8,17 @@ import os
 
 
 class Report:
-    def __init__(self, mlp: NeuralNetwork, time_id, data: list[DataMlp]):
+    def __init__(self, mlp: NeuralNetwork, time_id, data: list[DataMlp], dir_name="report"):
         self.__id = time_id
         self.__mlp = mlp
         self.__data = data
-        self.__log_dir = f"mlp/logs/report_{self.__id}"
+        self.__log_dir = f"mlp/logs/{dir_name}_{self.__id}"
         self.__report_logger = self.__config_logging("report_mlp")
         self.__weights_logger = self.__config_logging("mlp_weights")
 
     def __config_logging(self, filename: str):
         os.makedirs(self.__log_dir, exist_ok=True) 
-        logger = logging.getLogger(filename)
+        logger = logging.getLogger(f"{filename}_{self.__id}")
         logger.setLevel(logging.DEBUG)
         formatter = logging.Formatter('%(message)s')
         file_handler = logging.FileHandler(f'{self.__log_dir}/{filename}_{self.__id}.log')

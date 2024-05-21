@@ -13,8 +13,9 @@ class NeuralNetwork:
     __id = 0
 
     def __init__(self,
-                 data_mlp: list[DataMlp],
-                 params: Parameters):
+                 params: Parameters,
+                 data_mlp: list[DataMlp]=None,
+                 weight_list: list=None):
         self.__params = params
         self.__input_layer = InputLayer(data_mlp)
         self.__hidden_layer = HiddenLayer(params.total_hidden_perceptrons, params.input_vector_dimension)
@@ -22,6 +23,7 @@ class NeuralNetwork:
         self.__error_info = []
         self.__final_era = None
         self.__final_error = 0
+        self.__carry_weights(weight_list)
         NeuralNetwork.__id += 1
         self.__id = NeuralNetwork.__id
     
@@ -47,10 +49,11 @@ class NeuralNetwork:
     def __iterate_data(self) -> float:
         accumulated_error = 0
         for data in self.__input_layer.data:
-            outputs = self.__feedforward(data.vector)
+            hidden_layer_output = self.__hidden_layer.output(data.vector)
+            outputs = self.__output_layer.output(hidden_layer_output)
             accumulated_error += self.__mean_squared_error(outputs, data.target)
-            output_error_rate = self.__output_layer.update_weights(self.__params.learning_rate, data.target, outputs)
-            self.__hidden_layer.update_weights(self.__params.learning_rate, output_error_rate)
+            output_error_rate = self.__output_layer.update_weights(self.__params.learning_rate, data.target, hidden_layer_output, outputs)
+            self.__hidden_layer.update_weights(self.__params.learning_rate, output_error_rate, data.vector)
         return accumulated_error
 
     # Calcula o erro médio quadrático da rede
@@ -70,7 +73,7 @@ class NeuralNetwork:
             current_error = self.__iterate_data()
             self.__error_info.append((era, current_error))
             print(f"- Error[{era}] = {current_error}")
-            if current_error < self.__params.error_rate:
+            if abs(current_error - previous_error) < self.__params.error_rate:
                 break
         self.__final_era = era
         self.__final_error = current_error
@@ -79,6 +82,11 @@ class NeuralNetwork:
     # Gera a saída da rede para uma data entrada
     def output(self, vector: list[int]) -> list[float]:
         return self.__feedforward(vector)
+    
+    def __carry_weights(self, weight_list: list) -> None:
+        if weight_list:
+            self.__hidden_layer.carry_weights(weight_list[0])
+            self.__output_layer.carry_weights(weight_list[1])
     
     def __repr__(self) -> str:
         return f'''MLP=
