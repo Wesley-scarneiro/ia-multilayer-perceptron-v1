@@ -3,8 +3,10 @@ import matplotlib.pyplot as plt
 import logging
 from data.data_mlp import DataMlp
 import matplotlib.pyplot as plt
-import numpy
+import numpy as np
 import os
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 
 class Report:
@@ -33,26 +35,39 @@ class Report:
         plt.ylabel('Accumulated error')
         plt.title('Accumulated error by eras')
         plt.savefig(f"{self.__log_dir}/graph_{self.__id}")
+        plt.close()
+    
+    def __generate_confusion_matrix(self, expected_output: list[str], real_output: list[str]):
+        cm = confusion_matrix(np.array(expected_output), np.array(real_output))
+        display = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+        plt.title('Confusion Matrix')
+        display.plot(cmap=plt.cm.Blues)
+        plt.savefig(f"{self.__log_dir}/confusion_matrix_{self.__id}")
+        plt.close()
     
     def __learning_assessment(self) -> None:
-        self.__report_logger.info("-- Learning assessment --")
         alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         total_hits = 0
         char_hits = []
         char_erros = []
+        expected_output = [data.char for data in self.__data]
+        real_output = []
         for data in self.__data:
             output = self.__mlp.output(data.vector)
-            index = output.index(numpy.amax(output))
+            index = output.index(np.amax(output))
             char = f"{data.char}({self.__data.index(data)})"
+            real_output.append(alphabet[index])
             if (data.char == alphabet[index]):
                 total_hits += 1
                 char_hits.append(char)
             else:
                 char_erros.append(char)
+        self.__report_logger.info("-- Learning assessment --")
         self.__report_logger.info(f"- Total_hits = {total_hits}")
         self.__report_logger.info(f"- Total_errors = {len(self.__data) - total_hits}")
         self.__report_logger.info(f"- Char_hits = {char_hits}")
         self.__report_logger.info(f"- Char_errors = {char_erros}")
+        self.__generate_confusion_matrix(expected_output, real_output)
 
     def report(self) -> None:
         self.__report_logger.info("-- MLP info --")

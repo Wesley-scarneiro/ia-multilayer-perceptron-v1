@@ -1,0 +1,38 @@
+-- MLP info --
+MLP=
+    [
+        - Id=3,
+        - Params=
+        [
+            - learning_rate = 0.5, 
+            - error_rate: float = 1, 
+            - input_vector_dimension = 120, 
+            - total_hidden_perceptrons = 150, 
+            - total_output_percetrons = 26, 
+            - total_eras = 50, 
+            - bias_value = 1, 
+            - threshold_max = 1, 
+            - threshold_min = 0
+        ],
+        - InputLayer=
+        [
+            - TotalData = 1224
+        ],
+        - HiddenLayer=
+        [
+            - TotalPerceptrons=150, 
+            - VectorDimension=120
+        ],
+        - OutputLayer=
+        [
+            - TotalPerceptrons=26, 
+            - VectorDimension=150
+        ]
+        - Final_era= 20
+        - Final_error = 15.469678052164952
+    ]
+-- Learning assessment --
+- Total_hits = 95
+- Total_errors = 7
+- Char_hits = ['W(0)', 'X(1)', 'Y(2)', 'Z(3)', 'A(4)', 'B(5)', 'C(6)', 'D(7)', 'E(8)', 'F(9)', 'G(10)', 'H(11)', 'I(12)', 'K(14)', 'L(15)', 'M(16)', 'N(17)', 'O(18)', 'P(19)', 'Q(20)', 'R(21)', 'S(22)', 'T(23)', 'U(24)', 'V(25)', 'W(26)', 'X(27)', 'Y(28)', 'Z(29)', 'A(30)', 'B(31)', 'D(33)', 'E(34)', 'F(35)', 'G(36)', 'H(37)', 'I(38)', 'L(41)', 'M(42)', 'N(43)', 'O(44)', 'P(45)', 'Q(46)', 'R(47)', 'S(48)', 'U(50)', 'V(51)', 'W(52)', 'X(53)', 'Y(54)', 'Z(55)', 'A(56)', 'C(58)', 'D(59)', 'E(60)', 'F(61)', 'G(62)', 'H(63)', 'J(65)', 'K(66)', 'L(67)', 'M(68)', 'N(69)', 'O(70)', 'P(71)', 'Q(72)', 'R(73)', 'S(74)', 'T(75)', 'U(76)', 'V(77)', 'W(78)', 'X(79)', 'Y(80)', 'Z(81)', 'A(82)', 'B(83)', 'C(84)', 'D(85)', 'E(86)', 'F(87)', 'G(88)', 'H(89)', 'I(90)', 'J(91)', 'K(92)', 'L(93)', 'M(94)', 'N(95)', 'O(96)', 'P(97)', 'Q(98)', 'R(99)', 'S(100)', 'T(101)']
+- Char_errors = ['J(13)', 'C(32)', 'J(39)', 'K(40)', 'T(49)', 'B(57)', 'I(64)']

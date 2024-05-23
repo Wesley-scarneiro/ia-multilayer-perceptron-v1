@@ -1,7 +1,7 @@
 from entities.hidden_layer import HiddenLayer
 from entities.output_layer import OutputLayer
 from data.data_mlp import DataMlp
-from configs.parameters import Parameters
+from entities.parameters import Parameters
 from .input_layer import InputLayer
 import math
 
@@ -77,7 +77,7 @@ class NeuralNetwork:
                 break
         self.__final_era = era
         self.__final_error = current_error
-        print("fineshed")
+        print("finished")
     
     # Gera a saída da rede para uma data entrada
     def output(self, vector: list[int]) -> list[float]:

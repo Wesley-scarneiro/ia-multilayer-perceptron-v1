@@ -2,7 +2,7 @@ from datetime import datetime
 from entities.neural_network import NeuralNetwork
 from entities.report import Report
 from data.data_mlp import DataMlp
-from configs.parameters import Parameters
+from entities.parameters import Parameters
 
 class CrossValidation:
 
@@ -20,8 +20,7 @@ class CrossValidation:
                 fold.clear()
         return folds
 
-    def report(self):
-        params = Parameters(0.5, 1, 120, 150, 26, 50)
+    def report(self, params: Parameters):
         for index in range(len(self.__folds)):
             temp_folds = self.__folds.copy()
             validation_fold = temp_folds[index]
@@ -29,5 +28,5 @@ class CrossValidation:
             traning_fold = sum(temp_folds, [])
             mlp = NeuralNetwork(params, traning_fold)
             mlp.train_neural_network()
-            report = Report(mlp, f"{datetime.now().strftime('%y%m%d%H%M%S')}", validation_fold, dir_name=f"cross_validation_{index}")
+            report = Report(mlp, f"{datetime.now().strftime('%y-%m-%d-%H-%M-%S')}", validation_fold, dir_name=f"cross_validation_{index}")
             report.report()

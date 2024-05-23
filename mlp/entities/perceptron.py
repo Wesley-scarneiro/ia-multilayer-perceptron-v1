@@ -1,5 +1,4 @@
 import math
-from .sensory_neurons import SensoryNeuron
 import random
 import numpy as np
 
