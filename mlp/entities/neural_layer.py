@@ -1,3 +1,12 @@
+'''
+    Uma abstração de uma camada em uma rede neural.
+    Esta abstração visa simplificar a implementação da camada oculta
+    e de saída de uma MLP, visto que, ambas possuem comportamentos em comum.
+    Contém uma lista de perceptrons e dimensão dos seus vetores de entrada.
+
+    A camada oculta e de saída devem implementar somente o método abstrato update_weights()
+'''
+
 from abc import ABC, abstractmethod
 from entities.perceptron import Perceptron
 

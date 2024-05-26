@@ -1,3 +1,10 @@
+'''
+    Representa os neurônios de uma MLP.
+    Alguns métodos são implementados especificamente para serem usados pela camada oculta
+    e outros pela camada de saída.
+    Possui uma lista de pesos e pode se carregado com pesos pré-definidos.
+'''
+
 import math
 import random
 import numpy as np

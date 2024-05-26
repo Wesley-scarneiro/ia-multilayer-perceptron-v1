@@ -1,3 +1,10 @@
+'''
+    Implementa a geração do relatórios da MLP
+    São gerados gráficos de decaimento dos erros e da matriz de confusão.
+    Também é gerado Um relatório final contendo os parâmetros e informações da simulação da MLP
+    para um determinado conjunto de dados.
+'''
+
 from entities.neural_network import NeuralNetwork
 import matplotlib.pyplot as plt
 import logging

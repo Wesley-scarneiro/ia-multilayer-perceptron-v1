@@ -1,3 +1,15 @@
+
+'''
+    Representa um multilayer perceptron (MLP)
+    Contém as seguintes camadas:
+        - Camada de entrada (__input_layer)
+        - Camada oculta (__hidden_layer)
+        - Camada de saída (__output_layer)
+    Implementa um algoritmo de treinamento que realiza a parada antecipada quando
+    a diferença entre a taxa de erro da iteração atual com a anterior é menor que
+    um determinado valor (definido nos parâmetros da rede).
+'''
+
 from entities.hidden_layer import HiddenLayer
 from entities.output_layer import OutputLayer
 from data.data_mlp import DataMlp
@@ -5,9 +17,6 @@ from entities.parameters import Parameters
 from .input_layer import InputLayer
 import math
 
-'''
-    Representa um multilayer perceptron (MLP)
-'''
 class NeuralNetwork:
     
     __id = 0

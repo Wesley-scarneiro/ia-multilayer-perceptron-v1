@@ -1,3 +1,7 @@
+'''
+    Representa os parâmetros de configuração da MLP.
+'''
+
 class Parameters:
 
     def __init__(self, 
