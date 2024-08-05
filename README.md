@@ -7,7 +7,6 @@ Trabalho 1 de inteligência artificial sobre redes neurais (Multilayer Perceptro
 * Instalar dependências
 * Executar o arquivo main.py
 
-> source venv/bin/activate  
 > python3 main.ṕy
 
 As dependências necessárias para execução estão especificadas no arquivo **requirements**
