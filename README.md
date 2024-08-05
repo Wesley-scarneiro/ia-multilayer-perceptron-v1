@@ -4,7 +4,7 @@ Trabalho 1 de inteligência artificial sobre redes neurais (Multilayer Perceptro
 
 ## Como executar
 
-* Ativar o ambiente virtual que contém as dependências
+* Instalar dependências
 * Executar o arquivo main.py
 
 > source venv/bin/activate  
